@@ -1,4 +1,5 @@
-﻿using EmbedIO;
+﻿using Authentication.Service;
+using EmbedIO;
 using EmbedIO.Actions;
 using EmbedIO.WebApi;
 using OllamaSharp;
@@ -16,19 +17,18 @@ namespace AI.MultiModal.Maui
 
         private async void OnCounterClicked(object? sender, EventArgs e)
         {
-            var uri = new Uri("http://localhost:11435/");
-            var ollama = new OllamaApiClient(uri);
-            // select a model which should be used for further operations
-            ollama.SelectedModel = "gemma3:270m";
+            try
+            {
+#if ANDROID
+                var service = new AuthenticationService();
+                await service.RegisterAsync("kevin bushiri", "test", "test@test.com");
+                Android.Widget.Toast.MakeText(Android.App.Application.Context, "Registered successfully", Android.Widget.ToastLength.Long).Show();
+#endif
+            }
+            catch (Exception ex)
+            {
 
-
-            await foreach (var status in ollama.PullModelAsync("gemma3:270m"))
-                data.Text = ($"{status.Percent}% {status.Status}");
-            data.Text = "Model downloaded successfully!";
-            await Task.Delay(1500);
-            data.Text = "";
-            await foreach (var stream in ollama.GenerateAsync("How are you today?"))
-                data.Text +=(stream.Response);
+            }
         }
 
         //private static WebServer CreateWebServer(string url)

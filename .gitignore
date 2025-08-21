@@ -361,3 +361,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/AI.MultiModal.Maui/Platforms/Android/Resources/google-services.json

@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Runtime;
+using Authentication.Service;
 
 namespace AI.MultiModal.Maui
 {
@@ -9,6 +10,7 @@ namespace AI.MultiModal.Maui
         public MainApplication(IntPtr handle, JniHandleOwnership ownership)
             : base(handle, ownership)
         {
+            FirebaseAuthInitializer.InitializeFirebase();
         }
 
         protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();

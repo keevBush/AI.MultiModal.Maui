@@ -32,13 +32,14 @@ namespace Authentication.Service
         public Task LogoutAsync()
             => Task.Run(() => FirebaseAuth.Instance.SignOut());
 
-        public Task<bool> RegisterAsync(string fullname, string password, string email)
+        public async Task<bool> RegisterAsync(string fullname, string password, string email)
         {
             try
             {
-                var registered
+                var authentication = await FirebaseAuth.Instance.CreateUserWithEmailAndPasswordAsync(email, password);
+                return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;
